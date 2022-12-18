@@ -1,9 +1,9 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import RoomList from '../components/Room.vue'
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <RoomList />
   </main>
 </template>
