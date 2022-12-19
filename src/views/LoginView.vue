@@ -31,9 +31,11 @@ export default {
       })
       .then(response => {
         if(response.data.token!=null){
+          alert(response.data.message);
           localStorage.setItem( 'token', response.data.token );
           this.$router.push('/reservation');
-        }else{
+        }
+        else{
             alert(response.data.message);
         }
         console.log(response.data.message);

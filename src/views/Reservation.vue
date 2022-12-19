@@ -33,6 +33,7 @@ export default {
       roomData : {
         checkIn:'',
         checkOut:'',
+        room_id:localStorage.getItem("room_id")
       }
     };
   },

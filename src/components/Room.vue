@@ -9,7 +9,7 @@
     <p class="card-text" style="color:#000000">Room Size:{{room.size}}</p>
     <p class="card-text" style="color:#000000">Price:{{room.price}}</p>
     <p class="card-text" style="color:#000000">{{room.description}}</p>
-    <button @click="bookNow" class="btn btn-warning">Book Now</button>
+    <button @click="bookNow(room.id)" class="btn btn-warning">Book Now</button>
   </div>
 </div>
     </div>
@@ -22,7 +22,8 @@ export default {
     name:"rooms",
     data(){
         return {
-            rooms:[]
+            rooms:[],
+            room_id: null
         }
     },
     mounted(){
@@ -38,12 +39,12 @@ export default {
                 this.rooms = []
             })
         },
-        bookNow(){
+        bookNow(id){
           let token = localStorage.getItem('token');
           if(token==null){
               this.$router.push('/login');
           }else{
-            localStorage.setItem( 'room_id', response.data.token );
+            localStorage.setItem( 'room_id', id );
             this.$router.push('/reservation');
           }
         }
