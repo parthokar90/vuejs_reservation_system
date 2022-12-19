@@ -30,7 +30,7 @@ export default {
     },
     methods:{
          getRooms(){
-             axios.get(`http://127.0.0.1:8000/api/room`).then(response=>{
+             axios.get(`http://127.0.0.1:8000/api/rooms`).then(response=>{
                 this.rooms = response.data
                 console.log(response);
             }).catch(error=>{
@@ -43,6 +43,7 @@ export default {
           if(token==null){
               this.$router.push('/login');
           }else{
+            localStorage.setItem( 'room_id', response.data.token );
             this.$router.push('/reservation');
           }
         }

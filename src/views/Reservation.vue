@@ -1,7 +1,25 @@
 <template>
 <h1>Room Reservation</h1>
-Name: <p style="color:#ffffff">{{name}} </p><br>
-Email:<p style="color:#ffffff"> {{email}}</p>
+<p style="color:#000000">User Name:  {{name}} </p><br>
+
+<form>
+ <div class="form-group">
+   <label>Check In</label>
+   <br>
+   <input v-model="roomData.checkIn"  type="date">
+ </div>
+
+ <br>
+
+  <div class="form-group">
+   <label>Check Out</label>
+   <br>
+   <input v-model="roomData.checkOut" type="date">
+ </div>
+ <br>
+ <button type="button" @click="RoomBookNow" class="btn btn-warning">Book Now</button>
+</form>
+
 </template>
 
 
@@ -12,13 +30,16 @@ export default {
   data() {
     return {
       name: '',
-      email: '',
+      roomData : {
+        checkIn:'',
+        checkOut:'',
+      }
     };
   },
   mounted() {
     let token=localStorage.getItem("token");
     axios
-      .get("http://127.0.0.1:8000/api/dashboard", {
+      .get("http://127.0.0.1:8000/api/access", {
         headers: {
           Authorization: `Bearer ${token}`,
           token: token
@@ -26,9 +47,30 @@ export default {
       })
       .then(res => {
          this.name=res.data.name  
-         this.email=res.data.email  
-        console.log(res);
       });
+  },
+  methods:{
+    RoomBookNow(){
+    
+      let token=localStorage.getItem("token");
+
+      let endpoint = "http://127.0.0.1:8000/api/book";
+
+      let headers = { 
+          Authorization: `Bearer ${token}`,
+          token: token
+      };
+
+    axios.post(endpoint, this.roomData, {headers})
+      .then(response => {
+        alert(response.data.message);
+      })
+      .catch(error => {
+        console.log(error.response); // logs an object to the console
+
+      });
+
+    }
   }
 };
 
